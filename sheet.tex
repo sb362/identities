@@ -1,0 +1,214 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{amsmath}
+
+
+% To make this come out properly in landscape mode, do one of the following
+% 1.
+%  pdflatex latexsheet.tex
+%
+% 2.
+%  latex latexsheet.tex
+%  dvips -P pdf  -t landscape latexsheet.dvi
+%  ps2pdf latexsheet.ps
+
+
+% If you're reading this, be prepared for confusion.  Making this was
+% a learning experience for me, and it shows.  Much of the placement
+% was hacked in; if you make it better, let me know...
+
+
+% 2008-04
+% Changed page margin code to use the geometry package. Also added code for
+% conditional page margins, depending on paper size. Thanks to Uwe Ziegenhagen
+% for the suggestions.
+
+% 2006-08
+% Made changes based on suggestions from Gene Cooperman. <gene at ccs.neu.edu>
+
+
+% To Do:
+% \listoffigures \listoftables
+% \setcounter{secnumdepth}{0}
+
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+	{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+}
+
+% Turn off header and footer
+\pagestyle{empty}
+
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+	{-1ex plus -.5ex minus -.2ex}%
+	{0.5ex plus .2ex}%x
+	{\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+	{-1explus -.5ex minus -.2ex}%
+	{0.5ex plus .2ex}%
+	{\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+	{-1ex plus -.5ex minus -.2ex}%
+	{1ex plus .2ex}%
+	{\normalfont\small\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+% -----------------------------------------------------------------------
+
+\begin{document}
+
+\begin{center}
+	\Large{\textbf{Useful maths formulae}} \\
+\end{center}
+
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\section{Trigonometric identities}
+	\subsection*{Angle sum and difference}
+		\[ \sin(\alpha \pm \beta )=\sin \alpha \cos \beta \pm \cos \alpha \sin \beta \]
+		\[ \cos(\alpha \pm \beta )=\cos \alpha \cos \beta \mp \sin \alpha \sin \beta \]
+
+	\subsection*{Power reduction}
+		\begin{align*}
+		\sin ^{2}\theta &= \frac {1-\cos(2\theta)}{2} &
+		\cos ^{2}\theta &= \frac {1+\cos(2\theta)}{2}
+		\end{align*}
+
+\section{Series}
+	\subsection*{Binomial series}
+		\begin{align*}
+		(x+y)^n &= \sum_{k=0}^{\infty} \binom{n}{k} x^{n-k} y^k & \binom{n}{k} &= \frac{n!}{k!(n - k)!}
+		\end{align*}
+
+	\subsection*{Taylor series}
+		\[ f(x) = f(a)+{\frac{f'(a)}{1!}}(x-a)+{\frac{f''(a)}{2!}}(x-a)^{2} + \cdots \]
+
+\section{Integral substitutions}
+	\subsection*{Tangent half-angle substitution}
+		If \(t = \tan{\frac{x}{2}}\) then
+		\begin{align*}
+			\sin{x} &= \frac{2t}{1+t^2}, &
+			\cos{x} &= \frac{1-t^2}{1+t^2}, &
+			dx &= \frac{2}{1+t^2} dt.
+		\end{align*}
+
+	\subsection*{Euler's substitutions}
+		This applies to integrals of the form:
+		\[\int R(x, \sqrt{ax^2 + bx + c})\,dx.\]
+
+		\begin{enumerate}
+			\item If \(a > 0\), use \[\sqrt{ax^2 + bx + c} = \pm x \sqrt{a} + t.\]
+			\item If \(c > 0\), use \[\sqrt{ax^2 + bx + c} = xt \pm \sqrt{c}.\]
+			\item If \(ax^2 + bx + c\) has real roots \(\alpha\) and \(\beta\),
+			use \[\sqrt{ax^2 + bx + c} = \sqrt{a(x - \alpha)(x - \beta)} = (x - \alpha) t.\]
+		\end{enumerate}
+
+\section{Integral tricks}
+	\subsection*{Frullani integrals}
+		Assuming $f(x)$ is continuous and both $\lim_{x \to 0} f(x)$ and $\lim_{x \to +\infty} f(x)$ are well-defined, then
+		\[\int_{0}^{\infty} \frac{f(ax)-f(bx)}{x}\,dx = (f(\infty)-f(0)) \ln{\frac{a}{b}}.\]
+
+	\subsection*{Inverse functions}
+		\[\int f^{-1}(x)\,dx = x f^{-1}(x) - (F \circ f^{-1})(x) + C\]
+		\[\int_{a}^{b} f(x)\,dx + \int_{c}^{d} f^{-1}(x)\,dx = b d - a c\]
+
+	\subsection*{Leibniz integral rule}
+		\[{\frac{d}{dx}} \int _{a}^{b} f(x,t)\,dt = f{\big (}x, b{\big )} \cdot {\frac {db}{dx}} - f{\big (}x, a{\big )} \cdot {\frac{da}{dx}} + \int _{a}^{b}{\frac{\partial}{\partial x}} f(x,t)\,dt\]
+		assuming \(-\infty < a(x)\) and \(b(x) < \infty\).
+
+	\subsection*{Glasser's master theorem}
+		\[\int_{-\infty}^{\infty} f(x)\,dx = \int_{-\infty}^{\infty} f(|\alpha| x - \sum_{i}\frac{\gamma_i}{x - \beta_i})\,dx\] for arbitrary \(\alpha\), \(\gamma_i\), \(\beta_i\).
+
+	\subsection*{Gamma function}
+		\[\int_{0}^{\infty} x^b e^{-a x} dx = \frac{\Gamma(b+1)}{a^{b+1}}\]
+		\[\int_{0}^{\infty} \frac{x^t}{e^x - 1} \frac{dx}{x} = \zeta(t) \gamma(t)\]
+
+\section{Coordinate systems}
+	\subsection*{Cylindrical coordinates}
+		\[(R,\phi,z) \in [0,\infty) \times [0,2\pi) \times (-\infty,\infty)\]
+
+		\begin{align*}
+		R    &= \sqrt{x^2 + y^2} & x &= R \cos{\phi} & g_R &= 1\\
+		\phi &= \arctan{\frac{y}{x}} & y &= R \sin{\phi} & g_\phi &= R\\
+		z    &= z & z &= z & g_z &= 1
+		\end{align*}
+
+	\subsection*{Spherical coordinates}
+		\[(r,\theta,\phi) \in [0,\infty) \times [0,\pi] \times [0,2\pi) \]
+
+		\begin{align*}
+		r      &= \sqrt{x^2 + y^2 + z^2} & x &= r \sin{\theta} \cos{\phi} & g_r &= 1\\
+		\theta &= \arccos{\frac{z}{r}} = \arctan{\frac{R}{z}} & y &= r \sin{\theta} \sin{\phi} & g_\theta &= r\\
+		\phi   &= \arctan{\frac{y}{x}} & z &= r \cos{\theta} & g_\phi &= r \sin{\theta}
+		\end{align*}
+
+\section{Vector calculus}
+	\begin{align*}
+	\nabla \times (\nabla f) &= 0 & \nabla \cdot (\nabla \times \mathbf{F}) &= 0 \\
+	\mathbf{e}_u &= \frac{ \partial \mathbf{r} / \partial u }{ |\partial \mathbf{r} / \partial u | }
+	\end{align*}
+
+\section{Miscellaneous}
+	\subsection*{2D matrix eigenvalues and eigenvectors}
+		\begin{align*}
+		\lambda^2 - (a + d)\lambda + (ad-bc) &= 0 & \begin{pmatrix}
+		b \\
+		\lambda - a
+		\end{pmatrix},
+		\begin{pmatrix}
+		\lambda - d \\
+		c
+		\end{pmatrix}
+		\end{align*}
+
+	\subsection*{Stirling's approxmiation}
+		\begin{align*}
+		\ln{n!} &\approx n \ln{n} - n + 1\\
+		n! &\approx \sqrt{2\pi n} \left( \frac{n}{e} \right)^n
+		\end{align*}
+
+	\subsection*{Descartes' rule of signs}
+		If the non-zero terms of a single-variable polynomial with real coefficients are ordered by descending variable exponent, then the number of positive roots of the polynomial is either equal to the number of sign changes between consecutive coefficients, or is less than it by an even number.\\
+		Example: \(f(x) = x^3+x^2-x-1 \) has one sign change, so has exactly one positive root.
+		\(f(-x) = -x^3+x^2+x-1\) has two sign changes, so has two or zero positive roots.
+
+% Copyright \copyright\ 2014 Winston Chang
+% \href{http://wch.github.io/latexsheet/}{http://wch.github.io/latexsheet/}
+
+\end{multicols}
+
+\end{document}
