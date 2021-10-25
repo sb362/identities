@@ -7,34 +7,10 @@
 \usepackage{mathtools}
 \usepackage{amsmath}
 
+\usepackage[most]{tcolorbox}
 
-% To make this come out properly in landscape mode, do one of the following
-% 1.
-%  pdflatex latexsheet.tex
-%
-% 2.
-%  latex latexsheet.tex
-%  dvips -P pdf  -t landscape latexsheet.dvi
-%  ps2pdf latexsheet.ps
-
-
-% If you're reading this, be prepared for confusion.  Making this was
-% a learning experience for me, and it shows.  Much of the placement
-% was hacked in; if you make it better, let me know...
-
-
-% 2008-04
-% Changed page margin code to use the geometry package. Also added code for
-% conditional page margins, depending on paper size. Thanks to Uwe Ziegenhagen
-% for the suggestions.
-
-% 2006-08
-% Made changes based on suggestions from Gene Cooperman. <gene at ccs.neu.edu>
-
-
-% To Do:
-% \listoffigures \listoftables
-% \setcounter{secnumdepth}{0}
+\usepackage{txfonts}
+%\renewcommand{\familydefault}{\sfdefault}
 
 
 % This sets page margins to .5 inch if using letter paper, and to 1cm
@@ -53,14 +29,16 @@
 
 % Redefine section commands to use less space
 \makeatletter
-\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+\renewcommand{\section}{
+	\@startsection{section}{1}{0mm}%
 	{-1ex plus -.5ex minus -.2ex}%
 	{0.5ex plus .2ex}%x
-	{\normalfont\large\bfseries}}
+	{\normalfont\large\bfseries}
+}
 \renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
 	{-1explus -.5ex minus -.2ex}%
 	{0.5ex plus .2ex}%
-	{\normalfont\normalsize\bfseries}}
+	{\normalfont\small\itshape}}
 \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
 	{-1ex plus -.5ex minus -.2ex}%
 	{1ex plus .2ex}%
@@ -76,6 +54,14 @@
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt plus 0.5ex}
+
+% tcolorbox commands
+\newcommand\startcolorbox{
+	\begin{tcolorbox}[breakable,colback=white,colframe=black,
+	width=\dimexpr\linewidth\relax]
+}
+\newcommand\stopcolorbox{\end{tcolorbox}}
+
 
 % -----------------------------------------------------------------------
 
@@ -97,6 +83,7 @@
 \setlength{\multicolsep}{1pt}
 \setlength{\columnsep}{2pt}
 
+\startcolorbox
 \section{Trigonometric identities}
 	\subsection*{Angle sum and difference}
 		\[ \sin(\alpha \pm \beta )=\sin \alpha \cos \beta \pm \cos \alpha \sin \beta \]
@@ -108,6 +95,8 @@
 		\cos ^{2}\theta &= \frac {1+\cos(2\theta)}{2}
 		\end{align*}
 
+\stopcolorbox
+\startcolorbox
 \section{Series}
 	\subsection*{Binomial series}
 		\begin{align*}
@@ -116,7 +105,18 @@
 
 	\subsection*{Taylor series}
 		\[ f(x) = f(a)+{\frac{f'(a)}{1!}}(x-a)+{\frac{f''(a)}{2!}}(x-a)^{2} + \cdots \]
+	
+	\subsection*{Fourier series}
+		\[ f(x) = f(a)+{\frac{f'(a)}{1!}}(x-a)+{\frac{f''(a)}{2!}}(x-a)^{2} + \cdots \]
 
+\stopcolorbox
+\startcolorbox
+\section{Integral transforms}
+	\subsection*{Fourier transform}
+		
+
+\stopcolorbox
+\startcolorbox
 \section{Integral substitutions}
 	\subsection*{Tangent half-angle substitution}
 		If \(t = \tan{\frac{x}{2}}\) then
@@ -137,6 +137,8 @@
 			use \[\sqrt{ax^2 + bx + c} = \sqrt{a(x - \alpha)(x - \beta)} = (x - \alpha) t.\]
 		\end{enumerate}
 
+\stopcolorbox
+\startcolorbox
 \section{Integral tricks}
 	\subsection*{Frullani integrals}
 		Assuming $f(x)$ is continuous and both $\lim_{x \to 0} f(x)$ and $\lim_{x \to +\infty} f(x)$ are well-defined, then
@@ -157,6 +159,8 @@
 		\[\int_{0}^{\infty} x^b e^{-a x} dx = \frac{\Gamma(b+1)}{a^{b+1}}\]
 		\[\int_{0}^{\infty} \frac{x^t}{e^x - 1} \frac{dx}{x} = \zeta(t) \gamma(t)\]
 
+\stopcolorbox
+\startcolorbox
 \section{Coordinate systems}
 	\subsection*{Cylindrical coordinates}
 		\[(R,\phi,z) \in [0,\infty) \times [0,2\pi) \times (-\infty,\infty)\]
@@ -176,12 +180,16 @@
 		\phi   &= \arctan{\frac{y}{x}} & z &= r \cos{\theta} & g_\phi &= r \sin{\theta}
 		\end{align*}
 
+\stopcolorbox
+\startcolorbox
 \section{Vector calculus}
 	\begin{align*}
 	\nabla \times (\nabla f) &= 0 & \nabla \cdot (\nabla \times \mathbf{F}) &= 0 \\
 	\mathbf{e}_u &= \frac{ \partial \mathbf{r} / \partial u }{ |\partial \mathbf{r} / \partial u | }
 	\end{align*}
 
+\stopcolorbox
+\startcolorbox
 \section{Miscellaneous}
 	\subsection*{2D matrix eigenvalues and eigenvectors}
 		\begin{align*}
@@ -205,6 +213,7 @@
 		If the non-zero terms of a single-variable polynomial with real coefficients are ordered by descending variable exponent, then the number of positive roots of the polynomial is either equal to the number of sign changes between consecutive coefficients, or is less than it by an even number.\\
 		Example: \(f(x) = x^3+x^2-x-1 \) has one sign change, so has exactly one positive root.
 		\(f(-x) = -x^3+x^2+x-1\) has two sign changes, so has two or zero positive roots.
+\stopcolorbox
 
 % Copyright \copyright\ 2014 Winston Chang
 % \href{http://wch.github.io/latexsheet/}{http://wch.github.io/latexsheet/}
