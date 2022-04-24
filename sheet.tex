@@ -1,17 +1,32 @@
 \documentclass[10pt,landscape]{article}
+\usepackage[landscape]{geometry}
+\usepackage[most]{tcolorbox}
+
+\usepackage{url}
+\usepackage[pdfusetitle]{hyperref}
+\usepackage{titlesec}      % Modify title/section/chapter commands
+\usepackage{mathtools}     % Various maths related commands
+\usepackage{gensymb}       % \degree symbol
+\usepackage[thinc]{esdiff} % Derivatives
+\usepackage{booktabs}      % \toprule, etc., in tables
+\usepackage{doi}           % support DOI links in bibliography
+\usepackage{wrapfig}       % figures in text
 \usepackage{multicol}
 \usepackage{calc}
 \usepackage{ifthen}
-\usepackage[landscape]{geometry}
-\usepackage{hyperref}
-\usepackage{mathtools}
-\usepackage{amsmath}
 
-\usepackage[most]{tcolorbox}
 
-\usepackage{txfonts}
-%\renewcommand{\familydefault}{\sfdefault}
+\usepackage{fontspec}  % Fonts
+\usepackage{helvet}
+\usepackage{newpxtext,newpxmath}
+\defaultfontfeatures{Scale=MatchLowercase, Ligatures=TeX}
 
+% https://tex.stackexchange.com/a/43009
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+% Change footnote style
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
 
 % This sets page margins to .5 inch if using letter paper, and to 1cm
 % if using A4 paper. (This probably isn't strictly necessary.)
@@ -26,14 +41,13 @@
 % Turn off header and footer
 \pagestyle{empty}
 
-
 % Redefine section commands to use less space
 \makeatletter
 \renewcommand{\section}{
 	\@startsection{section}{1}{0mm}%
 	{-1ex plus -.5ex minus -.2ex}%
 	{0.5ex plus .2ex}%x
-	{\normalfont\large\bfseries}
+	{\sffamily\large\bfseries}
 }
 \renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
 	{-1explus -.5ex minus -.2ex}%
@@ -162,6 +176,11 @@
 \stopcolorbox
 \startcolorbox
 \section{Coordinate systems}
+	\begin{align*}
+		\mathbf{e}_u &= \frac{ \partial \mathbf{r} / \partial u }{ \norm{\partial \mathbf{r} / \partial u} } &
+		g_u &= \norm{\partial \mathbf{r} / \partial u}
+	\end{align*}
+
 	\subsection*{Cylindrical coordinates}
 		\[(R,\phi,z) \in [0,\infty) \times [0,2\pi) \times (-\infty,\infty)\]
 
@@ -184,8 +203,14 @@
 \startcolorbox
 \section{Vector calculus}
 	\begin{align*}
-	\nabla \times (\nabla f) &= 0 & \nabla \cdot (\nabla \times \mathbf{F}) &= 0 \\
-	\mathbf{e}_u &= \frac{ \partial \mathbf{r} / \partial u }{ |\partial \mathbf{r} / \partial u | }
+	\nabla \times (\nabla f) &= 0 & \nabla \cdot (\nabla \times \mathbf{F}) &= 0
+	\end{align*}
+
+	\subsection*{Divergence and curl in general orthogonal coordinates}
+	\begin{align*}
+		\nabla &= \mathbf{e}_u \frac{1}{g_u} \frac{\partial}{\partial u} + \mathbf{e}_v \frac{1}{g_v} \frac{\partial}{\partial v} + \mathbf{e}_u \frac{1}{g_w} \frac{\partial}{\partial w} \\
+		\nabla \cdot \mathbf{F} &= \frac{1}{g_u g_v g_w} \left[ \frac{\partial (g_v g_w F_u)}{\partial u} + \frac{\partial (g_w g_u F_v)}{\partial v} + \frac{\partial (g_u g_v F_w)}{\partial w} \right] \\
+		\mathbf{e}_u \cdot \nabla \times \mathbf{F} &= \frac{1}{g_v g_w} \left[ \frac{\partial g_w F_w}{\partial v} - \frac{\partial g_v F_v}{\partial w} \right]
 	\end{align*}
 
 \stopcolorbox
